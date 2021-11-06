@@ -24,12 +24,18 @@ const int MAX = 20; // Maximum value for n
 // Returns:  ifstream and ofstream by reference (input and output file)
 void openFiles(ifstream &infile, ofstream &outfile);
 
-/*int main()
+// Purpose:  Determines whether n is 1 <= n <= 20
+// Receives: int n by value, an integer
+// Returns:  bool value 0 or 1, 1 if valid, 0 if invalid
+bool isValid(int n);
+
+int main()
 {
-    ifstream infile;  // Input file stream
-    ofstream outfile; // Output file stream
-    int n;            // Number of activities to process
-    vector<Task> tasks;
+    ifstream infile;    // Input file stream
+    ofstream outfile;   // Output file stream
+    int n;              // Number of activities(tasks) to process
+    vector<Task> tasks; // Vector containing N task objects
+
     // Opens i/o files
     openFiles(infile, outfile);
 
@@ -40,13 +46,8 @@ void openFiles(ifstream &infile, ofstream &outfile);
     infile.close();
     outfile.close();
     return 0;
-}*/
-
-int main()
-{
-    Task t1(1,2);
-    cout << t1;
 }
+
 
 // Purpose:  Prompts user for names of input & output file, then opens them.
 // Receives: ifstream object by reference, input file,
@@ -65,4 +66,18 @@ void openFiles(ifstream &infile, ofstream &outfile)
 
     cin >> outFileName;
     outfile.open(outFileName); // Open output file
+}
+
+
+vector<Task> getData(ifstream &infile, int n)
+{
+    int n;
+}
+
+// Purpose:  Determines whether n is 1 <= n <= 100
+// Receives: int n by value, an integer
+// Returns:  bool value 0 or 1, 1 if valid, 0 if invalid
+bool isValid(int n)
+{
+    return MIN <= n && n <= MAX;
 }
