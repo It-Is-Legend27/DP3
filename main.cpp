@@ -11,8 +11,8 @@
 #include <iomanip>
 #include <fstream>
 #include <vector>
-#include "Task.hpp"
-#include "Task.hpp"
+#include "task.hpp"
+
 using namespace std;
 
 const int MIN = 1;  // Minimum value for n
