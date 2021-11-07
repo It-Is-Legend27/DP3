@@ -81,9 +81,9 @@ Task::Task(ifstream &infile)
 //           (containing Task object data)
 ostream &operator<<(ostream &os, const Task &T)
 {
-    os << T.start_time << setw(10)
+    os << right << setw(3) << T.start_time << setw(10)
        << T.length << setw(10)
-       << T.end_time << '\n';
+       << T.end_time;
     return os;
 }
 
@@ -95,9 +95,9 @@ ostream &operator<<(ostream &os, const Task &T)
 //           (containing Task object data)
 ofstream &operator<<(ofstream &of, const Task &T)
 {
-    of << T.start_time << setw(10)
+    of << right << setw(3) << T.start_time << setw(10)
        << T.length << setw(10)
-       << T.end_time << '\n';
+       << T.end_time;
     return of;
 }
 
