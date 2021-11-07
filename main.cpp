@@ -24,6 +24,8 @@ const int MAX = 20; // Maximum value for n
 // Returns:  ifstream and ofstream by reference (input and output file)
 void openFiles(ifstream &infile, ofstream &outfile);
 
+void getData(ifstream &infile, vector<Task> &tasks, int n);
+
 // Purpose:  Determines whether n is 1 <= n <= 20
 // Receives: int n by value, an integer
 // Returns:  bool value 0 or 1, 1 if valid, 0 if invalid
@@ -42,12 +44,26 @@ int main()
     // Prints header and column names to output file
     outfile << "Angel Badillo\n"
             << "Program 3: Greedy Scheduling\n\n";
-            
+
+    infile >> n;
+
+    if (isValid(n))
+    {
+        getData(infile, tasks, n);
+
+        for (int i = 0; i < n; i++)
+        {
+            cout << tasks[i];
+        }
+    }
+    else
+    {
+    }
+
     infile.close();
     outfile.close();
     return 0;
 }
-
 
 // Purpose:  Prompts user for names of input & output file, then opens them.
 // Receives: ifstream object by reference, input file,
@@ -68,10 +84,12 @@ void openFiles(ifstream &infile, ofstream &outfile)
     outfile.open(outFileName); // Open output file
 }
 
-
-vector<Task> getData(ifstream &infile, int n)
+void getData(ifstream &infile, vector<Task> &tasks, int n)
 {
-    int n;
+    for (int i = n - 1; i >= 0; i--)
+    {
+        tasks.push_back(Task(infile));
+    }
 }
 
 // Purpose:  Determines whether n is 1 <= n <= 100
