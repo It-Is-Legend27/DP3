@@ -97,7 +97,7 @@ int main()
 
     infile >> n;
 
-    tasks = doStuff(infile, n);
+    getData(infile, tasks, n);
 
     insertionSort(tasks);
 
