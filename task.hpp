@@ -1,5 +1,4 @@
-#ifndef TASK_HPP // Include guard
-#define TASK_HPP
+#pragma once
 
 #include <ostream>
 #include <fstream>
@@ -100,5 +99,3 @@ ofstream &operator<<(ofstream &of, const Task &T)
        << T.end_time;
     return of;
 }
-
-#endif

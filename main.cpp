@@ -12,34 +12,51 @@
 #include <fstream>
 #include <vector>
 #include "task.hpp"
-#include <list>
+
 using namespace std;
 
 const int MIN = 1;  // Minimum value for n
 const int MAX = 20; // Maximum value for n
 
-bool earlierEnd(const Task &rhs, const Task &lhs)
-{
-    return (rhs.end_time < lhs.end_time);
-}
-// Purpose:  Prompts user for names of input & output file, then opens them.
-// Receives: ifstream object by reference, input file,
-//           ofstream object by reference, output file
-// Returns:  ifstream and ofstream by reference (input and output file)
+/* @brief
+ *
+ *
+ */
 void openFiles(ifstream &infile, ofstream &outfile);
 
+/* @brief  Gets data from input file and stores it in vector<Task> arr.
+ * @param  &infile file stream stream by reference. 
+ * @param  &arr A vector of type Task by reference.
+ * @param  size Number of tasks in the input file.
+ * @return Nothing.
+ */
 void getData(ifstream &infile, vector<Task> &arr, int size);
 
+/* @brief Sorts the vector of type Task via insertion
+ *        sort, sorting the tasks by end time.
+ *
+ * @param &arr A vector of type Task by reference.
+ *
+ * @return Nothing.
+ */
 void insertionSort(vector<Task> &arr);
 
+/*
+ * @brief Sorts the vector of type Task via insertion
+ *        sort, sorting the tasks by end time.
+ *
+ * @param &arr A vector of type Task by reference
+ *
+ * @return Nothing
+ */
 int findMin(const vector<Task> &arr);
 
-void print(vector<Task> &arr);
+void print(const vector<Task> &arr);
 
 // Purpose:  Determines whether n is 1 <= n <= 20
 // Receives: int n by value, an integer
 // Returns:  bool value 0 or 1, 1 if valid, 0 if invalid
-bool isValid(int n);
+bool isValid(const int n);
 
 int main()
 {
@@ -139,7 +156,7 @@ int findMin(const vector<Task> &arr)
     return minIndex;
 }
 
-void print(vector<Task> &arr)
+void print(const vector<Task> &arr)
 {
     for (int i = 0; i < arr.size(); i++)
     {
@@ -150,7 +167,7 @@ void print(vector<Task> &arr)
 // Purpose:  Determines whether n is 1 <= n <= 100
 // Receives: int n by value, an integer
 // Returns:  bool value 0 or 1, 1 if valid, 0 if invalid
-bool isValid(int n)
+bool isValid(const int n)
 {
     return MIN <= n && n <= MAX;
 }
