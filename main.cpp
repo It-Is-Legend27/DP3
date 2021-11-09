@@ -18,8 +18,6 @@ using namespace std;
 const int MIN = 1;  // Minimum value for n (number of tasks)
 const int MAX = 20; // Maximum value for n (numbers of tasks)
 
-vector<Task> doStuff(ifstream &infile, int size);
-
 /**
  * @brief Prompts the user for i/o file names. Opens the i/o files and 
  *        "returns" them via the arguments passed by reference.
@@ -219,14 +217,4 @@ void print(const vector<Task> &arr)
 bool isValid(const int n)
 {
     return (MIN <= n && n <= MAX);
-}
-
-vector<Task> doStuff(ifstream &infile, int size)
-{
-    vector<Task> pog;
-    for (int i = 0; i < size; i++)
-    {
-        pog.push_back(Task(infile));
-    }
-    return pog;
 }
