@@ -15,47 +15,68 @@
 
 using namespace std;
 
-const int MIN = 1;  // Minimum value for n
-const int MAX = 20; // Maximum value for n
+const int MIN = 1;  // Minimum value for n (number of tasks)
+const int MAX = 20; // Maximum value for n (numbers of tasks)
 
-/* @brief
- *
- *
+vector<Task> doStuff(ifstream &infile, int size);
+
+/**
+ * @brief Prompts the user for i/o file names. Opens the i/o files and 
+ *        "returns" them via the arguments passed by reference.
+ *  
+ * @param infile  input file stream by reference.
+ * @param outfile output file stream by reference.
+ * 
+ * @return Nothing.
  */
 void openFiles(ifstream &infile, ofstream &outfile);
 
-/* @brief  Gets data from input file and stores it in vector<Task> arr.
- * @param  &infile file stream stream by reference. 
- * @param  &arr A vector of type Task by reference.
- * @param  size Number of tasks in the input file.
+/** 
+ * @brief  Gets data from the input file and stores it the vector of tasks.
+ * 
+ * @param  infile file stream stream by reference. 
+ * @param  arr    A vector of type Task by reference.
+ * @param  size   Number of tasks in the input file.
+ * 
  * @return Nothing.
  */
 void getData(ifstream &infile, vector<Task> &arr, int size);
 
-/* @brief Sorts the vector of type Task via insertion
- *        sort, sorting the tasks by end time.
+/**
+ * @brief Sorts the vector of tasks via insertion
+ *        sort, sorting the tasks by earliest to latest end time.
  *
- * @param &arr A vector of type Task by reference.
+ * @param arr A vector of type Task by reference.
  *
  * @return Nothing.
  */
 void insertionSort(vector<Task> &arr);
 
-/*
+/**
  * @brief Sorts the vector of type Task via insertion
  *        sort, sorting the tasks by end time.
  *
- * @param &arr A vector of type Task by reference
+ * @param arr A vector of type Task by reference
  *
  * @return Nothing
  */
 int findMin(const vector<Task> &arr);
 
+/**
+ * @brief Prints the contents of the vector of tasks.
+ * 
+ * @param arr A vector of type Task by reference.
+ * 
+ * @return Nothing. 
+ */
 void print(const vector<Task> &arr);
 
-// Purpose:  Determines whether n is 1 <= n <= 20
-// Receives: int n by value, an integer
-// Returns:  bool value 0 or 1, 1 if valid, 0 if invalid
+/**
+ * @brief Tests an integer, n, to determine if it follows 1 <= n <= 20.
+ * 
+ * @param n An integer in the interval [1,20].
+ * @return True if n is within [1,20], false otherwise.
+ */
 bool isValid(const int n);
 
 int main()
@@ -78,7 +99,7 @@ int main()
 
     infile >> n;
 
-    getData(infile, tasks, n);
+    tasks = doStuff(infile, n);
 
     insertionSort(tasks);
 
@@ -89,10 +110,15 @@ int main()
     return 0;
 }
 
-// Purpose:  Prompts user for names of input & output file, then opens them.
-// Receives: ifstream object by reference, input file,
-//           ofstream object by reference, output file
-// Returns:  ifstream and ofstream by reference (input and output file)
+/**
+ * @brief Prompts the user for i/o file names. Opens the i/o files and 
+ *        "returns" them via the arguments passed by reference.
+ *  
+ * @param infile  input file stream by reference.
+ * @param outfile output file stream by reference.
+ * 
+ * @return Nothing.
+ */
 void openFiles(ifstream &infile, ofstream &outfile)
 {
     string inFileName;  // std::strings are better
@@ -108,19 +134,31 @@ void openFiles(ifstream &infile, ofstream &outfile)
     outfile.open(outFileName); // Open output file
 }
 
-// Purpose: Gets data from input file and stores it in a vector
-// Receives: ifstream &infile, ofstream object (input file) by reference,
-//           vector<Task> &arr, a vector of Task objects,
-//           int size, number of activities per file
-//
+/** 
+ * @brief  Gets data from the input file and stores it the vector of tasks.
+ * 
+ * @param  infile file stream stream by reference. 
+ * @param  arr    A vector of type Task by reference.
+ * @param  size   Number of tasks in the input file.
+ * 
+ * @return Nothing.
+ */
 void getData(ifstream &infile, vector<Task> &arr, int size)
 {
-    for (int i = size - 1; i >= 0; i--)
+    for (int i = 0; i < size; i++)
     {
         arr.push_back(Task(infile));
     }
 }
 
+/**
+ * @brief Sorts the vector of tasks via insertion
+ *        sort, sorting the tasks by earliest to latest end time.
+ *
+ * @param arr A vector of type Task by reference.
+ *
+ * @return Nothing.
+ */
 void insertionSort(vector<Task> &arr)
 {
     int i, j;
@@ -140,6 +178,14 @@ void insertionSort(vector<Task> &arr)
     }
 }
 
+/**
+ * @brief Sorts the vector of type Task via insertion
+ *        sort, sorting the tasks by end time.
+ *
+ * @param arr A vector of type Task by reference
+ *
+ * @return Nothing
+ */
 int findMin(const vector<Task> &arr)
 {
     int minVal = arr[0].end_time;
@@ -164,10 +210,23 @@ void print(const vector<Task> &arr)
     }
 }
 
-// Purpose:  Determines whether n is 1 <= n <= 100
-// Receives: int n by value, an integer
-// Returns:  bool value 0 or 1, 1 if valid, 0 if invalid
+/**
+ * @brief Tests an integer, n, to determine if it follows 1 <= n <= 20.
+ * 
+ * @param n An integer in the interval [1,20].
+ * @return True if n is within [1,20], false otherwise.
+ */
 bool isValid(const int n)
 {
-    return MIN <= n && n <= MAX;
+    return (MIN <= n && n <= MAX);
+}
+
+vector<Task> doStuff(ifstream &infile, int size)
+{
+    vector<Task> pog;
+    for (int i = 0; i < size; i++)
+    {
+        pog.push_back(Task(infile));
+    }
+    return pog;
 }
