@@ -132,19 +132,20 @@ void openFiles(ifstream &infile, ofstream &outfile)
     outfile.open(outFileName); // Open output file
 }
 
-/** 
+/**
  * @brief  Gets data from the input file and stores it the vector of tasks.
- * 
- * @param  infile file stream stream by reference. 
+ *
+ * @param  infile file stream stream by reference.
  * @param  arr    A vector of type Task by reference.
  * @param  size   Number of tasks in the input file.
- * 
+ *
  * @return Nothing.
  */
 void getData(ifstream &infile, vector<Task> &arr, int size)
 {
     for (int i = 0; i < size; i++)
     {
+        //
         arr.push_back(Task(infile));
     }
 }

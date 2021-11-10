@@ -12,26 +12,42 @@ public:
     int length;     // Duration of task
     int end_time;   // End time of task
 
-    // Purpose:  Constructs a Task object with default values
-    // Receives: Nothing
+    /**
+     * @brief  Construct a new Task object with default values.
+     * 
+     * @return Nothing.
+     */
     Task();
 
-    // Purpose:  Constructs a Task object using parameters, and calculates
-    //           end_time by adding start_time and length.
-    // Receives: int s_t, start time of the task, int len, duration of the task.
+    /**
+     * @brief  Construct a new Task object using parameters, and calculates the
+     *         end time by adding start time and length.
+     * 
+     * @param  s_t An integer, start time of the task.
+     * @param  len An integer, duration of the task.
+     * 
+     * @return Nothing.
+     */
     Task(int s_t, int len);
 
-    // Purpose:  Constructs a Task object using input file, and calculates
-    //           end_time by adding start_time and length.
-    // Receives: ifstream &infile, ifstream object (input file) by reference.
+    /**
+     * @brief  Construct a new Task object using an input file. Calculates
+     *         end time by adding start time and length.
+     * 
+     * @param  infile An input file stream by reference.
+     * 
+     * @return Nothing.
+     */
     Task(ifstream &infile);
 
-    // Purpose:  Overloads ostream so Task object can be printed to standard
-    //           output easier.
-    // Receives: ostream &os, ostream object (standard output) by reference,
-    //           const Task &T, Task object by reference
-    // Returns:  ostream &os, ostream object by reference
-    //           (containing Task object data)
+    /**
+     * @brief  Overloads ostream so Task object can be printed to standard
+     *         output easier and neater.
+     * 
+     * @param  os An output stream object by reference.
+     * @param  T  A Task object by reference.
+     * @return ostream&
+     */
     friend ostream &operator<<(ostream &os, const Task &T);
 
     // Purpose:  Overloads ofstream so Task object can be printed to output
