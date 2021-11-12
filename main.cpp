@@ -32,13 +32,12 @@ void openFiles(ifstream &infile, ofstream &outfile);
 /** 
  * @brief  Gets data from the input file and stores it the vector of tasks.
  * 
- * @param  infile file stream stream by reference. 
+ * @param  infile input file stream by reference. 
  * @param  arr    A vector of type Task by reference.
- * @param  size   Number of tasks in the input file.
  * 
  * @return Nothing.
  */
-void getData(ifstream &infile, vector<Task> &arr, int size);
+void getData(ifstream &infile, vector<Task> &arr);
 
 /**
  * @brief Sorts the vector of tasks via insertion
@@ -63,6 +62,7 @@ int findMin(const vector<Task> &arr);
 /**
  * @brief Prints the contents of the vector of tasks.
  * 
+ * @param infile 
  * @param arr A vector of type Task by reference.
  * 
  * @return Nothing. 
@@ -96,10 +96,10 @@ int main()
             << "Program 3: Greedy Scheduling\n\n";
 
     infile >> n;
+    tasks.resize(n);
+    getData(infile, tasks);
 
-    getData(infile, tasks, n);
-
-    insertionSort(tasks);
+    //insertionSort(tasks);
 
     print(tasks);
 
@@ -137,16 +137,16 @@ void openFiles(ifstream &infile, ofstream &outfile)
  *
  * @param  infile file stream stream by reference.
  * @param  arr    A vector of type Task by reference.
- * @param  size   Number of tasks in the input file.
  *
  * @return Nothing.
  */
-void getData(ifstream &infile, vector<Task> &arr, int size)
+void getData(ifstream &infile, vector<Task> &arr)
 {
-    for (int i = 0; i < size; i++)
+    for (int i = 0; i < arr.size(); i++)
     {
-        //
-        arr.push_back(Task(infile));
+        infile >> arr[i]; // Reads value from input file for entire Task 
+                          // object (Overloaded stream insertion ops in 
+                          // task.hpp)
     }
 }
 
@@ -201,11 +201,11 @@ int findMin(const vector<Task> &arr)
     return minIndex;
 }
 
-void print(const vector<Task> &arr)
+void print(ofstream &outfile, const vector<Task> &arr)
 {
     for (int i = 0; i < arr.size(); i++)
     {
-        cout << arr[i] << '\n';
+        outfile << arr[i] << '\n';
     }
 }
 
