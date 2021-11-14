@@ -3,7 +3,7 @@
  *
  * Course: CMPS-2433-101, Fall 2021, Springfellow
  *
- *  Purpose:
+ * Purpose:
  *
  ****************************************************************************/
 
@@ -175,32 +175,13 @@ void getData(ifstream &infile, vector<Task> &vect)
 }
 
 /**
- * @brief Sorts the vector of tasks via insertion
- *        sort, sorting the tasks by earliest to latest end time.
+ * @brief Sorts the vector of tasks via selection sort
+ *        sort, sorting the tasks by increasing end time.
  *
  * @param vect A vector of type Task by reference.
  *
  * @return Nothing.
  */
-void sortEndTime(vector<Task> &vect)
-{
-    int i, j;
-    Task temp;
-
-    for (i = 0; i < vect.size(); i++)
-    {
-        temp = vect[i];
-        j = i - 1;
-
-        while (j >= 0 && vect[j].end_time > temp.end_time)
-        {
-            vect[j + 1] = vect[j];
-            j = j - 1;
-        }
-        vect[j + 1] = temp;
-    }
-}
-
 void sort(vector<Task> &vect)
 {
     int i, j, min;
@@ -218,20 +199,21 @@ void sort(vector<Task> &vect)
     }
 }
 
+/**
+ * @brief Swaps the value of the element on the left to the element on
+ *        the right and vice-versa.
+ *
+ * @param lhs A Task object by reference
+ * @param rhs A Task object by reference
+ * 
+ * @return Nothing.
+ */
 void swapTask(Task &lhs, Task &rhs)
 {
     Task temp = lhs;
     lhs = rhs;
     rhs = temp;
 }
-/**
- * @brief Sorts the vector of type Task via insertion
- *        sort, sorting the tasks by end time.
- *
- * @param vect A vector of type Task by reference
- *
- * @return Nothing
- */
 
 void print(ofstream &outfile, const vector<Task> &vect)
 {
