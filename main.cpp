@@ -11,7 +11,6 @@
 #include <iomanip>
 #include <fstream>
 #include <vector>
-#include <algorithm>
 #include "task.hpp"
 
 using namespace std;
@@ -41,34 +40,25 @@ void openFiles(ifstream &infile, ofstream &outfile);
 void getData(ifstream &infile, vector<Task> &vect);
 
 /**
- * @brief Sorts the vector of tasks via insertion
+ * @brief Sorts the vector of tasks via selection sort
  *        sort, sorting the tasks by increasing end time.
  *
  * @param vect A vector of type Task by reference.
  *
  * @return Nothing.
  */
-void sortEndTime(vector<Task> &vect);
+void sort(vector<Task> &vect);
 
 /**
- * @brief Sorts the vector of tasks via insertion
- *        sort, sorting the tasks by increasing duration (length).
+ * @brief Swaps the value of the element on the left to the element on
+ *        the right and vice-versa.
  *
- * @param vect A vector of type Task by reference.
- *
+ * @param lhs A Task object by reference
+ * @param rhs A Task object by reference
+ * 
  * @return Nothing.
  */
-void sortLength(vector<Task> &vect);
-
-/**
- * @brief Finds the index of the task with minimum length in the vector of
- *        tasks.
- *
- * @param vect A vector of type Task by reference
- *
- * @return Nothing
- */
-int findMinLength(const vector<Task> &vect);
+void swapTask(Task &lhs, Task &rhs);
 
 /**
  * @brief Prints the contents of the vector of tasks.
@@ -92,7 +82,7 @@ int main()
 {
     ifstream infile;  // Input file stream
     ofstream outfile; // Output file stream
-    infile.open("GreedyData1.txt");
+    infile.open("data.txt");
     outfile.open("output1.txt");
     int n;                 // Number of activities(tasks) to process
     vector<Task> tasks;    // Vector containing N task objects
@@ -107,42 +97,36 @@ int main()
 
     infile >> n;
 
-    if (isValid(0))
+    if (isValid(n))
     {
         tasks.resize(n);        // Sets the vector to size N
         getData(infile, tasks); // Gets data from input file
-        sortEndTime(tasks);     // Sorts by end times via insertion sort
+        sort(tasks);            // Sorts by end times via insertion sort
 
         schedule.push_back(tasks[0]); // Push Task that ends the earliest
 
-        vector<Task> temp = tasks;    // Temp vector sorted by length
-        temp.erase(temp.begin());
-        
-        int j = 0;
-        for(int i = 0; i < temp.size(); i++)
+        int i, j;
+        for (i = 0, j = 0; i < tasks.size(); i++)
         {
-            if(schedule[j].end_time < temp[i].start_time)
+            if (schedule[j].end_time <= tasks[i].start_time)
             {
-                
-                schedule.push_back(temp[i]);
+                schedule.push_back(tasks[i]);
                 j++;
             }
         }
-        for(int i = 0; i < schedule.size(); i++)
+
+        cout << "Tasks\n";
+        for (Task t : tasks)
+        {
+            cout << t << '\n';
+        }
+        cout << "Schedule\n";
+        for (int i = 0; i < schedule.size(); i++)
         {
             cout << schedule[i] << '\n';
         }
-
     }
 
-    tasks.resize(11);
-    getData(infile, tasks);
-    sortEndTime(tasks);
-    for(Task y: tasks)
-    {
-        cout << y << '\n';
-    }
-    
     infile.close();
     outfile.close();
     return 0;
@@ -217,75 +201,29 @@ void sortEndTime(vector<Task> &vect)
     }
 }
 
-/**
- * @brief Sorts the vector of tasks via insertion
- *        sort, sorting the tasks by increasing length.
- *
- * @param vect A vector of type Task by reference.
- *
- * @return Nothing.
- */
-void sortLength(vector<Task> &vect)
+void sort(vector<Task> &vect)
 {
-    int i, j;
-    Task temp;
-
+    int i, j, min;
     for (i = 0; i < vect.size(); i++)
     {
-        temp = vect[i];
-        j = i - 1;
-
-        while (j >= 0 && vect[j].length > temp.length)
+        min = i;
+        for (j = i + 1; j < vect.size(); j++)
         {
-            vect[j + 1] = vect[j];
-            j = j - 1;
-        }
-        vect[j + 1] = temp;
-    }
-}
-
-Task findMinStartNEnd(vector<Task> &vect)
-{
-    Task minVal = vect[0];
-
-    for (int i = 0; i < vect.size(); i++)
-    {
-        if ((vect[i].start_time < minVal.start_time) && (vect[i].length == minVal.length))
-        {
-            minVal = vect[i];
-        }
-    }
-    return minVal;
-}
-
-void removeAll(vector<Task> &vect, int len)
-{
-    for(vector<Task>::iterator it = vect.begin(); it!= vect.end(); ++it)
-    {
-        if(it->length == len)
-        {
-            vect.erase(it);
-        }
-    }
-}
-/*void sortLength(vector<Task> &vect)
-{
-
-    for(vector<Task>::iterator i = vect.begin(); i != vect.end()-1; i++)
-    {
-        vector<Task>::iterator minimum = i;
-        for(vector<Task>::iterator j = i+1; j < vect.end(); j++)
-        {
-            if(j->length < minimum->length)
+            if (vect[j].end_time < vect[min].end_time)
             {
-                minimum = j;
+                min = j;
             }
         }
-        // Find the minimum element in unsorted array
-        iter_swap(minimum, i);
+        swapTask(vect[min], vect[i]);
     }
-}*/
+}
 
+void swapTask(Task &lhs, Task &rhs)
+{
+    Task temp = lhs;
+    lhs = rhs;
+    rhs = temp;
+}
 /**
  * @brief Sorts the vector of type Task via insertion
  *        sort, sorting the tasks by end time.
@@ -294,21 +232,6 @@ void removeAll(vector<Task> &vect, int len)
  *
  * @return Nothing
  */
-int findMinLength(const vector<Task> &vect)
-{
-    int minVal = vect[0].length;
-    int minIndex = 0;
-
-    for (int i = 0; i < vect.size(); i++)
-    {
-        if (vect[i].length < minVal)
-        {
-            minVal = vect[i].length;
-            minIndex = i;
-        }
-    }
-    return minIndex;
-}
 
 void print(ofstream &outfile, const vector<Task> &vect)
 {
