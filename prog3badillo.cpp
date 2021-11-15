@@ -197,7 +197,7 @@ void getData(ifstream &infile, vector<Task> &vect)
  */
 void sortEndTime(vector<Task> &vect)
 {
-    for (int i = 0; i < vect.size(); i++)
+    for (int i = 0; i < vect.size()-1; i++)
     {
         int min = i; // Index of found min value
         for (int j = i + 1; j < vect.size(); j++)
@@ -244,7 +244,7 @@ void scheduleBuilder(vector<Task> &tasks, vector<Task> &schedule)
     schedule.push_back(tasks[0]); // Push Task that ends the earliest
 
     int i, j;
-    for (i = 0, j = 0; i < tasks.size(); i++)
+    for (i = 1, j = 0; i < tasks.size(); i++)
     {
         if (schedule[j].end_time <= tasks[i].start_time) // If start of next
         {                                                // task is <= end of
