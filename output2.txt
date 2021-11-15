@@ -2,9 +2,9 @@ Angel Badillo
 Program 3: Greedy Scheduling\Sorting Program
 
 Start_Time     Length     End_Time
- 1              3          4
- 5              2          7
- 8              3         11
-12              2         14
+ 1              4          5
+ 5              1          6
+ 6              1          7
+ 7              9         16
 
 Maximum number of activities scheduled is 4.
